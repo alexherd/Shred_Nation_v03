@@ -49,6 +49,7 @@ public class ReadFile {
 			//use is just a string for 10 options per char ex 110, this is for options such as if char 1 is 0 then the user never loged on before, if 1 they have been on before. If char 2 is 0 autofind is off, if 1 then its on etc... list below
 			//use 1: 1 if user has logged on before, 0 if not
 			//use 2: 1 if autofind is on, 0 if not
+			//use 3: Background changing
 			
 			
 			String q = System.getProperty("user.name");

@@ -75,7 +75,7 @@ public class AccountCheckHandler implements EventHandler {
 					theDir.mkdir();
 
 					//Makes the properties file
-					WriteFile wfile = new WriteFile(name, "/Users/" + q + "/Documents/Shred_Nation/Profiles/" + name + "/List.ser", "01", "", "5", "0");
+					WriteFile wfile = new WriteFile(name, "/Users/" + q + "/Documents/Shred_Nation/Profiles/" + name + "/List.ser", "010", "0", "5", "0");
 					wfile.Write();
 					
 					//Makes the List file

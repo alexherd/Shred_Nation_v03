@@ -25,8 +25,7 @@ public class LoginHandler implements EventHandler {
 		
 		//Checks to see if the username is vaild by checking if the folder name exists
 		String q = System.getProperty("user.name");
-		File theDir = new File("/Users/" + q
-				+ "/Documents/Shred_Nation/Profiles/" + _userName.getText());
+		File theDir = new File("/Users/" + q + "/Documents/Shred_Nation/Profiles/" + _userName.getText());
 		
 		//If the username doesnt exist then it will show an alert
 		if (!theDir.exists()) {

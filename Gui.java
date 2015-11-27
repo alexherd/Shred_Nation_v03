@@ -72,9 +72,18 @@ public class Gui {
 		MenuItem itmDel = new MenuItem("Delete");
 		MenuItem itmView = new MenuItem("View");
 		MenuItem itmSwitch = new MenuItem("Switch");
+		
 
 		// Menu2
 		Menu options = new Menu("Options");
+		
+		//Submenu ****NEW****
+		Menu subCustom = new Menu("Customize");
+		
+		//Submenu Items (Style Sheets) ****NEW****
+		MenuItem itmDefault = new MenuItem("Default");
+		MenuItem itmForest = new MenuItem("Forest");
+		MenuItem itmStormcrow = new MenuItem("Stormcrow");
 
 		// Menu Items
 		MenuItem itmCustom = new MenuItem("Customize");
@@ -87,7 +96,8 @@ public class Gui {
 
 		// Add MenuItems to Menus
 		file.getItems().addAll(itmNew, itmDel, itmView, itmSwitch);
-		options.getItems().add(itmCustom);
+		subCustom.getItems().addAll(itmDefault, itmForest, itmStormcrow);
+		options.getItems().add(subCustom);
 		help.getItems().add(itmChanges);
 
 		// Add Menus to MenuBar
@@ -120,9 +130,9 @@ public class Gui {
 		// NEW! Button Event Handlers NEW!
 		// add Event Handlers to buttons
 		addMusic.setOnAction(new AddMusicHandler(_user));
-		editMusic.setOnAction(new EditMusicHandler());
-		delMusic.setOnAction(new DelMusicHandler());
-		scanMusic.setOnAction(new ScanMusicHandler());
+		editMusic.setOnAction(new EditMusicHandler(_user));
+		delMusic.setOnAction(new DelMusicHandler(_user));
+		scanMusic.setOnAction(new ScanMusicHandler(_user));
 		rateMusic.setOnAction(new RateMusicHandler());
 		sortMusic.setOnAction(new SortMusicHandler());
 
@@ -189,13 +199,35 @@ public class Gui {
 		root.setTop(menuBar);
 		root.setCenter(tabPane);
 
+
+		
 		// Usual suspects
 		Scene sceneMusic = new Scene(root, 600, 500);
+		
+		ReadFile readFile = new ReadFile(_user);
+		
+		if(readFile.getUse().substring(2, 3).equals("0")){
 		sceneMusic.getStylesheets().add("Shred_Style.css");
+		}
+		
+		if(readFile.getUse().substring(2, 3).equals("2")){
+		sceneMusic.getStylesheets().add("Stormcrow.css");
+		}
+		
+		if(readFile.getUse().substring(2, 3).equals("1")){
+		sceneMusic.getStylesheets().add("Forest.css");
+		}
+		
+		
 		Stage primaryStage = new Stage();
-		primaryStage.setTitle("Shread Nation - " + _user);
+		primaryStage.setTitle("Shred Nation - " + _user);
 		primaryStage.setScene(sceneMusic);
 		primaryStage.show();
+		
+		//Add Event Handlers to Submenu Items ****NEW****
+		itmDefault.setOnAction(new StyleHandler(sceneMusic, 0,_user));
+		itmForest.setOnAction(new StyleHandler(sceneMusic, 1,_user));
+		itmStormcrow.setOnAction(new StyleHandler(sceneMusic, 2,_user));
 		
 		// When the program is exited it will re-encrypt files
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -228,5 +260,11 @@ public class Gui {
  * (new classes for profile/music tabs) I'm a good coder I swear (IN PROGRESS)
  * Make buttons with images in list view on right of stage Cutomize icons Create
  * CSS Add new popup menu to customize color scheme?
+ * 
+ * 
+ * mike bug fix-
+ * make sure alerts stay on top... because they dont
+ * dont let user name be blank, it accepts it
+ * encrypt backup files
+ * 
  */
-

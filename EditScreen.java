@@ -10,18 +10,22 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class AddAlbumScreen{
+public class EditScreen{
 
 	private ArrayList<String> _songList;
-	private TextField _artist;
-	private TextField _album;
+	private ArrayList<String> _scoreList;
+	private String _artist;
+	private String _album;
 	private String _user;
+	private int _seek;
 	
-public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField album, String user){
+public EditScreen(ArrayList<String> songList, ArrayList<String> scoreList, String artist, String album, String user, int seek){
 	_songList = songList;
 	_artist = artist;
 	_album = album;
 	_user = user;
+	_scoreList = scoreList;
+	_seek = seek;
 }
 
 	public void show() {
@@ -30,10 +34,12 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		Stage stage = new Stage();
 		VBox main = new VBox();
 		GridPane gridA = new GridPane();
+		TextField artist = new TextField(_artist);
+		TextField album = new TextField(_album);
 		gridA.add(new Label("Artist :                                   "), 0, 0);
-		gridA.add(new Label(_artist.getText()), 1, 0);
+		gridA.add(artist, 1, 0);
 		gridA.add(new Label("Album : "), 0, 1);
-		gridA.add(new Label(_album.getText()), 1, 1);
+		gridA.add(album, 1, 1);
 		gridA.add(new Label("Song Name     "), 0, 2);
 		gridA.add(new Label("Scores        "), 1, 2);
 		main.getChildren().add(gridA);
@@ -53,7 +59,7 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		int j = 0;
 		for( j = 0; j < _songList.size(); j++){
 			gridB.add(new TextField(_songList.get(j)), 0, j);
-			gridB.add(new TextField(), 1, j);
+			gridB.add(new TextField(_scoreList.get(j)), 1, j);
 			TextListenerHolder temp = new TextListenerHolder(null,null);
 			holder.add(temp);
 			
@@ -86,7 +92,7 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		gridC.add(exit, 1, 0);
 		main.getChildren().add(gridC);
 		
-		enter.setOnAction(new AlbumSubmitHandler(gridB, _user,_artist,_album,stage));
+		enter.setOnAction(new EditSubmitHandler(gridB, _user,artist,album,stage,_seek));
 		
 		Scene scene = new Scene(main);
 		stage.setScene(scene);

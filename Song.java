@@ -3,15 +3,13 @@ public class Song {
 	
 	private String _song;
 	private String _location;
-	private String _album;
-	private String _band;
+
 	
 	
-	public Song(String song, String location, String album, String band){
+	public Song(String song, String location){
 		_song = song;
 		_location = location;
-		_album = album;
-		_band = band;
+
 		
 	}
 	
@@ -30,18 +28,6 @@ public class Song {
 	    	return _location;
 	    }
 	  
-	  public void setAlbum(String string){
-	    	_album = string;
-	    }
-	  public String getAlbum(){
-	    	return _album;
-	    }
-	  
-	  public void setBand(String string){
-	    	_band = string;
-	    }
-	  public String getBand(){
-	    	return _band;
-	    }
+
 
 }

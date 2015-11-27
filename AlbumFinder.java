@@ -97,9 +97,9 @@ public class AlbumFinder{
 				
 				ArrayList<String> fans = new ArrayList<String>();
 			
-				
-				
 			
+				
+
 			try{
 			for(int y = 0; y < 100; y++){
 				fans.add(doc.select("div.title").get(y).text());

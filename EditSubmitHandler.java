@@ -16,19 +16,21 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class AlbumSubmitHandler implements EventHandler {
+public class EditSubmitHandler implements EventHandler {
 
 	private GridPane _grid;
 	private String _user;
 	private TextField _artist;
 	private TextField _album;
 	private Stage _stage;
-	public AlbumSubmitHandler(GridPane grid, String user, TextField artist, TextField album, Stage stage){
+	private int _seek;
+	public EditSubmitHandler(GridPane grid, String user, TextField artist, TextField album, Stage stage, int seek){
 		_grid = grid;
 		_user = user;
 		_artist = artist;
 		_album = album;
 		_stage = stage;
+		_seek = seek;
 	}
 	
 	
@@ -139,6 +141,7 @@ ArrayList<String> songScore = new ArrayList<String>();
 		 	in = new ObjectInputStream(new FileInputStream(fe.getLoc()));
 		 	ArrayList<Album> array = (ArrayList<Album>) in.readObject();
 		 in.close();
+		 array.remove(_seek);
 		 
 		Album album = new Album(_artist.getText().toLowerCase()+_album.getText().toLowerCase(),alscore,_artist.getText(),_album.getText(),songName.get(0),songName.get(1),songName.get(2),songName.get(3),songName.get(4),songName.get(5),songName.get(6),songName.get(7),songName.get(8),
 				songName.get(9),songName.get(10),songName.get(11),songName.get(12),songName.get(13),songName.get(14),songName.get(15),songName.get(16),songName.get(17),songName.get(18),songName.get(19),
@@ -159,22 +162,18 @@ ArrayList<String> songScore = new ArrayList<String>();
 				out.close();
 
 				
-				int foo = Integer.parseInt(fe.getAlbum());
-				foo = foo + 1;
-				String q = Integer.toString(foo);
-				
 				int foops = Integer.parseInt(fe.getChange());
 				foops = foops + 1;
 				String qq = Integer.toString(foops);
 			
-				WriteFile fi = new WriteFile(_user, fe.getLoc(), fe.getUse(), q, fe.getFuture(), qq);
+				WriteFile fi = new WriteFile(_user, fe.getLoc(), fe.getUse(), fe.getAlbum(), fe.getFuture(), qq);
 				fi.Write();
 		
+				
 				if(Integer.parseInt(fe.getChange()) % Integer.parseInt(fe.getFuture()) == 0 ){
 					Backup backup = new Backup(_user);
 					backup.doit();
 				}
-			
 				
 				
 				

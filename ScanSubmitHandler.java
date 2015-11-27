@@ -16,19 +16,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class AlbumSubmitHandler implements EventHandler {
+public class ScanSubmitHandler implements EventHandler {
 
 	private GridPane _grid;
 	private String _user;
-	private TextField _artist;
-	private TextField _album;
+	private ArrayList<AlbumLoc> _database;
 	private Stage _stage;
-	public AlbumSubmitHandler(GridPane grid, String user, TextField artist, TextField album, Stage stage){
+	public ScanSubmitHandler(GridPane grid, String user, Stage stage, ArrayList<AlbumLoc> database){
 		_grid = grid;
 		_user = user;
-		_artist = artist;
-		_album = album;
 		_stage = stage;
+		_database = database;
 	}
 	
 	
@@ -76,6 +74,7 @@ ArrayList<String> songScore = new ArrayList<String>();
 				alert.setTitle("Shred Nation Alert");
 				alert.setHeaderText(null);
 				alert.setContentText("Can not have an empty textbox with filled textboxes after it");
+				
 				alert.showAndWait();
 				alert.setResizable(false);
 			
@@ -140,7 +139,7 @@ ArrayList<String> songScore = new ArrayList<String>();
 		 	ArrayList<Album> array = (ArrayList<Album>) in.readObject();
 		 in.close();
 		 
-		Album album = new Album(_artist.getText().toLowerCase()+_album.getText().toLowerCase(),alscore,_artist.getText(),_album.getText(),songName.get(0),songName.get(1),songName.get(2),songName.get(3),songName.get(4),songName.get(5),songName.get(6),songName.get(7),songName.get(8),
+		Album album = new Album(_database.get(0).getArtist().toLowerCase()+_database.get(0).getAlbum().toLowerCase(),alscore,_database.get(0).getArtist(),_database.get(0).getAlbum(),songName.get(0),songName.get(1),songName.get(2),songName.get(3),songName.get(4),songName.get(5),songName.get(6),songName.get(7),songName.get(8),
 				songName.get(9),songName.get(10),songName.get(11),songName.get(12),songName.get(13),songName.get(14),songName.get(15),songName.get(16),songName.get(17),songName.get(18),songName.get(19),
 				songScore.get(0),songScore.get(1),songScore.get(2),songScore.get(3),songScore.get(4),songScore.get(5),songScore.get(6),songScore.get(7),songScore.get(8),
 				songScore.get(9),songScore.get(10),songScore.get(11),songScore.get(12),songScore.get(13),songScore.get(14),songScore.get(15),songScore.get(16),songScore.get(17),songScore.get(18),songScore.get(19));
@@ -176,7 +175,7 @@ ArrayList<String> songScore = new ArrayList<String>();
 				}
 			
 				
-				
+				_database.remove(0);
 				
 		 } catch (FileNotFoundException e3) {
 		 	// TODO Auto-generated catch block
@@ -192,6 +191,11 @@ ArrayList<String> songScore = new ArrayList<String>();
 		
 		_stage.close();
 		_stage = null;
+		
+		if(_database.size() > 0){
+			ScanAlbumScreen screen = new ScanAlbumScreen(_database, _user);
+			screen.show();
+		}
 		
 	}
 

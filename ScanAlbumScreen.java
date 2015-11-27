@@ -10,17 +10,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class AddAlbumScreen{
+public class ScanAlbumScreen{
 
-	private ArrayList<String> _songList;
-	private TextField _artist;
-	private TextField _album;
+
 	private String _user;
+	private ArrayList<AlbumLoc> _database;
 	
-public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField album, String user){
-	_songList = songList;
-	_artist = artist;
-	_album = album;
+public ScanAlbumScreen(ArrayList<AlbumLoc> database, String user){
+	_database = database;
 	_user = user;
 }
 
@@ -31,29 +28,32 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		VBox main = new VBox();
 		GridPane gridA = new GridPane();
 		gridA.add(new Label("Artist :                                   "), 0, 0);
-		gridA.add(new Label(_artist.getText()), 1, 0);
+		gridA.add(new Label(_database.get(0).getArtist()), 1, 0);
 		gridA.add(new Label("Album : "), 0, 1);
-		gridA.add(new Label(_album.getText()), 1, 1);
+		gridA.add(new Label(_database.get(0).getAlbum()), 1, 1);
 		gridA.add(new Label("Song Name     "), 0, 2);
 		gridA.add(new Label("Scores        "), 1, 2);
 		main.getChildren().add(gridA);
 		
-		
-		/*
-				if(grid.getChildren().get(0).getClass().equals(lab.getClass())){
-            	lab = (Label) grid.getChildren().get(0);
-            	System.out.println(lab.getText());}
-            	
-            	*/
-          
+		  ArrayList<String> songList = new ArrayList<String>();
+		  ArrayList<String> loc = new ArrayList<String>();
+          for(int i = 0; i < _database.get(0).getList().size() ; i++){
+        	  songList.add(_database.get(0).getList().get(i).getSong());
+        	  loc.add(_database.get(0).getList().get(i).getLoc());
+          }
 		
 		GridPane gridB = new GridPane();
 		ArrayList<TextListenerHolder> holder = new ArrayList<TextListenerHolder>();
 		
 		int j = 0;
-		for( j = 0; j < _songList.size(); j++){
-			gridB.add(new TextField(_songList.get(j)), 0, j);
+		for( j = 0; j < songList.size(); j++){
+			Button button = new Button("Play");
+			
+			button.setOnAction(new MP3Player(loc.get(j), button   ));
+			
+			gridB.add(new TextField(songList.get(j)), 0, j);
 			gridB.add(new TextField(), 1, j);
+			gridB.add(button, 2, j);
 			TextListenerHolder temp = new TextListenerHolder(null,null);
 			holder.add(temp);
 			
@@ -72,8 +72,8 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		
 		
 		
-		gridB.add(new TextField(), 0, _songList.size() );
-		gridB.add(holder.get(_songList.size()).getText(), 1, _songList.size());
+		gridB.add(new TextField(), 0, songList.size() );
+		gridB.add(holder.get(songList.size()).getText(), 1, songList.size());
 		
 		
 		
@@ -86,13 +86,13 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		gridC.add(exit, 1, 0);
 		main.getChildren().add(gridC);
 		
-		enter.setOnAction(new AlbumSubmitHandler(gridB, _user,_artist,_album,stage));
+		enter.setOnAction(new ScanSubmitHandler(gridB, _user,stage,_database));
 		
 		Scene scene = new Scene(main);
 		stage.setScene(scene);
 		stage.sizeToScene();
-		stage.setAlwaysOnTop(true);
-		stage.showAndWait();
+		//stage.setAlwaysOnTop(true);
+		stage.show();
 		
 		
 		

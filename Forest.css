@@ -1,12 +1,12 @@
 /*Work on this*/
 .root {
-	-fx-background-color:white;
+	-fx-background-color:lightgreen;
 	-fx-focus-color:transparent;
 	-fx-faint-focus-color:transparent;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color:darkgrey;
+    -fx-background-color:darkgreen;
 }
 
 .tab-pane{
@@ -21,7 +21,7 @@
 
 .tab-pane .tab:selected{
 	-fx-background-color:white;
-	-fx-border-color:blue;
+	-fx-border-color:green;
 }
 
 .tab .tab-label{
@@ -29,19 +29,19 @@
 }
 
 .tab:selected .tab-label{
-	-fx-text-fill:blue;
+	-fx-text-fill:green;
 }
 
 .button:hover{
 	-fx-border-radius:5 5 5 5;
 	-fx-border-width:1px;
-	-fx-border-color:blue;
-	-fx-text-fill:blue;
+	-fx-border-color:green;
+	-fx-text-fill:green;
 }
 
 .button:focused{
 	-fx-border-radius:5 5 5 5;
 	-fx-border-width:1px;
-	-fx-border-color:blue;
-	-fx-text-fill:blue;
+	-fx-border-color:green;
+	-fx-text-fill:green;
 }
