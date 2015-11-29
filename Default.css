@@ -40,7 +40,7 @@
 
 /* BUTTONS */
 .button {
-    -fx-background-color: linear-gradient(white, lightgrey);
+    -fx-background-color: linear-gradient(white, grey);
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-border-width:1px;

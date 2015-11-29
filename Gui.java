@@ -57,8 +57,11 @@ public class Gui {
 		MenuItem itmExit = new MenuItem("Exit");
 
 		// Menu2
-		Menu options = new Menu("Options");
+		Menu preferences = new Menu("Preferences");
 
+		// Menu Item
+		MenuItem itmOptions = new MenuItem("Options");
+		
 		// Submenu ****NEW****
 		Menu subCustom = new Menu("Customize");
 
@@ -76,11 +79,11 @@ public class Gui {
 		// Add MenuItems to Menus
 		file.getItems().addAll(itmLogOut, itmExit);
 		subCustom.getItems().addAll(itmDefault, itmForest, itmStormcrow);
-		options.getItems().add(subCustom);
+		preferences.getItems().addAll(itmOptions, subCustom);
 		help.getItems().add(itmChanges);
 
 		// Add Menus to MenuBar
-		menuBar.getMenus().addAll(file, options, help);
+		menuBar.getMenus().addAll(file, preferences, help);
 
 		// TabPane
 		TabPane tabPane = new TabPane();
@@ -95,6 +98,7 @@ public class Gui {
 
 		// Add scrollpane to layout for displaying information to user via text
 		ScrollPane scrollMusic = new ScrollPane();
+		scrollMusic.setPadding(new Insets(5,10,5,10));
 		Text displayText = new Text("Welcome to Shred Nation " + _user + "!");
 		scrollMusic.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollMusic.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -136,6 +140,7 @@ public class Gui {
 		// Add layout to music tab
 		tabMusic.setContent(paneMusic);
 
+		//Controversial
 		setBtnSizes();
 
 		// Add Tabs to tabPane
@@ -153,7 +158,10 @@ public class Gui {
 		// Add event handlers to File Menu
 		itmExit.setOnAction(new ExitHandler(primaryStage, 0));
 		itmLogOut.setOnAction(new ExitHandler(primaryStage, 1));
-
+		
+		// Event handlers to Preferences
+		itmOptions.setOnAction(new OptionsHandler());
+		
 		// Add Event Handlers to Submenu Items
 		itmDefault.setOnAction(new StyleHandler(sceneMusic, 0, _user));
 		itmForest.setOnAction(new StyleHandler(sceneMusic, 1, _user));
@@ -210,6 +218,7 @@ public class Gui {
 
 // ******* ONLY MADE CHANGES TO Gui CLASS *********
 // NEW CLASSES ADDED: ClearTextHandler, ChangesHandler, ExitHandler
+// NEWER CLASSED ADDED: Options, OptionsHandler
 
 // mike bug fix- make sure alerts stay on top... because they dont dont let user
 // name be blank, it accepts it encrypt backup files
