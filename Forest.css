@@ -1,10 +1,16 @@
-/*Work on this*/
+/* ROOT */
 .root {
 	-fx-background-color:lightgreen;
 	-fx-focus-color:transparent;
 	-fx-faint-focus-color:transparent;
 }
 
+/* MENU BAR */
+.menu:hover, .menu:showing, .menu-item:hover, .menu-item:focused {
+	-fx-background-color:green;
+}
+
+/* TAB PANE */
 .tab-pane .tab-header-area .tab-header-background {
     -fx-background-color:darkgreen;
 }
@@ -32,16 +38,37 @@
 	-fx-text-fill:green;
 }
 
+/* BUTTONS */
+.button {
+    -fx-background-color: linear-gradient(lightgreen, green);
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-border-width:1px;
+    -fx-border-radius:5 5 5 5;
+	-fx-border-color:black;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+
 .button:hover{
 	-fx-border-radius:5 5 5 5;
 	-fx-border-width:1px;
-	-fx-border-color:green;
-	-fx-text-fill:green;
+	-fx-border-color:yellow;
+	-fx-text-fill:yellow;
 }
 
-.button:focused{
-	-fx-border-radius:5 5 5 5;
-	-fx-border-width:1px;
-	-fx-border-color:green;
-	-fx-text-fill:green;
+
+/* SCROLL PANE */
+.scroll-pane > .viewport{
+	-fx-background-color: transparent;
+}
+
+
+/* SCROLL BAR */
+.scroll-bar .thumb {
+    -fx-background-color: green;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-background-color: green;
 }

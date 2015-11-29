@@ -24,18 +24,18 @@ public class StyleHandler implements EventHandler<ActionEvent>{
 			WriteFile fi = new WriteFile(_user, readFile.getLoc(), change + "0", readFile.getAlbum(), readFile.getFuture(), readFile.getChange());
 			fi.Write();
 			_sceneMusic.getStylesheets().removeAll("Forest.css", "Stormcrow.css");
-			_sceneMusic.getStylesheets().add("Shred_Style.css");
+			_sceneMusic.getStylesheets().add("Default.css");
 			break;
 		case 1:
 			WriteFile fi2 = new WriteFile(_user, readFile.getLoc(), change + "1", readFile.getAlbum(), readFile.getFuture(), readFile.getChange());
 			fi2.Write();
-			_sceneMusic.getStylesheets().removeAll("Shred_Style.css", "Stormcrow.css");
+			_sceneMusic.getStylesheets().removeAll("Default.css", "Stormcrow.css");
 			_sceneMusic.getStylesheets().add("Forest.css");
 			break;	
 		case 2:
 			WriteFile fi3 = new WriteFile(_user, readFile.getLoc(), change + "2", readFile.getAlbum(), readFile.getFuture(), readFile.getChange());
 			fi3.Write();
-			_sceneMusic.getStylesheets().removeAll("Shred_Style.css", "Forest.css");
+			_sceneMusic.getStylesheets().removeAll("Default.css", "Forest.css");
 			_sceneMusic.getStylesheets().add("Stormcrow.css");
 		}
 		
