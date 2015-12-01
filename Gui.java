@@ -104,6 +104,7 @@ public class Gui {
 		scrollMusic.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		scrollMusic.setContent(displayText);
 		paneMusic.setCenter(scrollMusic);
+		
 
 		// Music Buttons
 		addMusic = new Button("Add");
@@ -118,7 +119,7 @@ public class Gui {
 		editMusic.setOnAction(new EditMusicHandler(_user));
 		delMusic.setOnAction(new DelMusicHandler(_user));
 		scanMusic.setOnAction(new ScanMusicHandler(_user));
-		sortMusic.setOnAction(new SortMusicHandler());
+		sortMusic.setOnAction(new SortMusicHandler(_user,displayText));
 		clearText.setOnAction(new ClearTextHandler(displayText));
 
 		// GridPane for Music
@@ -156,11 +157,11 @@ public class Gui {
 		primaryStage.setTitle("Shred Nation - " + _user);
 
 		// Add event handlers to File Menu
-		itmExit.setOnAction(new ExitHandler(primaryStage, 0));
-		itmLogOut.setOnAction(new ExitHandler(primaryStage, 1));
+		itmExit.setOnAction(new ExitHandler(primaryStage, 0, _user, _pass));
+		itmLogOut.setOnAction(new ExitHandler(primaryStage, 1, _user, _pass));
 		
 		// Event handlers to Preferences
-		itmOptions.setOnAction(new OptionsHandler());
+		itmOptions.setOnAction(new OptionsHandler(_user, _pass));
 		
 		// Add Event Handlers to Submenu Items
 		itmDefault.setOnAction(new StyleHandler(sceneMusic, 0, _user));
@@ -176,7 +177,7 @@ public class Gui {
 			sceneMusic.getStylesheets().add("Default.css");
 		} else if (readFile.getUse().substring(2, 3).equals("1")) {
 			sceneMusic.getStylesheets().add("Forest.css");
-		} else {
+		} else if (readFile.getUse().substring(2, 3).equals("2")) {
 			sceneMusic.getStylesheets().add("Stormcrow.css");
 		}
 
@@ -220,5 +221,22 @@ public class Gui {
 // NEW CLASSES ADDED: ClearTextHandler, ChangesHandler, ExitHandler
 // NEWER CLASSED ADDED: Options, OptionsHandler
 
-// mike bug fix- make sure alerts stay on top... because they dont dont let user
-// name be blank, it accepts it encrypt backup files
+/*
+ * Ideas TO-DO Handle Button Actions (IN PROGRESS) Sort out this mess of a code
+ * (new classes for profile/music tabs) I'm a good coder I swear (IN PROGRESS)
+ * Make buttons with images in list view on right of stage Cutomize icons Create
+ * CSS Add new popup menu to customize color scheme?
+ * 
+ * 
+ * mike bug fix-
+ * make sure alerts stay on top... because they dont
+ * dont let user name be blank, it accepts it
+ * encrypt backup files
+ * program crashes, cant loig into account
+ * can create existing username
+ * check debug to see if there is something that shows what vars are still in memory to see how we can clean it up more
+ * make sure main screen is disabled when doing other stuff, if on wait doesnt work check newaccounthandler to see how i did it before
+ * make exit buttons work lol
+ * make a credits/about in help
+ * make a real help menu about program maybe?
+ */

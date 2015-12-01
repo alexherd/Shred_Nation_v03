@@ -1,4 +1,4 @@
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,8 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-@SuppressWarnings("rawtypes")
-public class NewAccountHandler implements EventHandler {
+public class NewAccountHandler implements EventHandler<ActionEvent> {
 	private GridPane _grid;
 	private Text _text;
 
@@ -22,9 +21,7 @@ public class NewAccountHandler implements EventHandler {
 		_text = text;
 	}
 
-	@SuppressWarnings("unchecked")
-	public void handle(Event arg0) {
-
+	public void handle(ActionEvent event) {
 		// GridPane
 		GridPane root = new GridPane();
 		root.setAlignment(Pos.CENTER);
@@ -85,8 +82,8 @@ public class NewAccountHandler implements EventHandler {
 		// Will set it back to enabled after closing window
 		primaryStage.setOnCloseRequest(new EnableLoginHandler(_grid, _text));
 
-		btnCreate.setOnAction(new AccountCheckHandler(tfUserName, pfPassword,
-				pfPasswordConf, primaryStage, _grid, _text));
+		btnCreate.setOnAction(
+				new AccountCheckHandler(tfUserName, pfPassword, pfPasswordConf, primaryStage, _grid, _text));
 
 	}
 

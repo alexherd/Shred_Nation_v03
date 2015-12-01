@@ -1,4 +1,3 @@
-
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;

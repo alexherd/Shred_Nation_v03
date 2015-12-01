@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 
 public class Login extends Application {
 
-	@SuppressWarnings("unchecked")
-	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		// GridPane for root layout
@@ -52,15 +50,15 @@ public class Login extends Application {
 		hbBtns.getChildren().addAll(btnNew, btnLogin);
 		root.add(hbBtns, 1, 4);
 
-		// Usual Shit
+		// Show Stage
 		Scene sceneLogin = new Scene(root, 350, 300);
 		primaryStage.setTitle("Shred Nation");
 		primaryStage.setScene(sceneLogin);
 		primaryStage.show();
 		primaryStage.setResizable(false);
 
-		btnLogin.setOnAction(new LoginHandler(tfUserName, pfPassword,
-				primaryStage));
+		// Set Handlers to buttons
+		btnLogin.setOnAction(new LoginHandler(tfUserName, pfPassword, primaryStage));
 		btnNew.setOnAction(new NewAccountHandler(root, title));
 	}
 

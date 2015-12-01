@@ -1,7 +1,5 @@
-
 import java.util.ArrayList;
 import java.util.Optional;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,14 +18,15 @@ public class AddAlbumAlert implements EventHandler<ActionEvent> {
 	public AddAlbumAlert(String user) {
 		_user = user;
 	}
-	
-	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
 
+	public void handle(ActionEvent arg0) {
+
+		// Starts the alert
 		Alert alertAddMusic = new Alert(AlertType.CONFIRMATION);
 		alertAddMusic.setTitle("Add Music");
 		alertAddMusic.setHeaderText("What would you like to add?");
 
+		// Makes the things to put in the alert
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -47,10 +46,11 @@ public class AddAlbumAlert implements EventHandler<ActionEvent> {
 		// Add buttons to alert
 		alertAddMusic.getButtonTypes().setAll(addAlbum, addCancel);
 
-		// Get user input
+		// Get user input + show alert
 		Optional<ButtonType> addInput = alertAddMusic.showAndWait();
 		if (addInput.get() == addAlbum) {
 
+			// Only will do this is both textboxes are not empty
 			if (!(artist.getText().equals("")) && !(album.getText().equals(""))) {
 
 				AlbumFinder finder = new AlbumFinder(artist, album, _user);
