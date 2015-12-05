@@ -43,11 +43,12 @@ public class Login extends Application {
 		// Log in Button
 		Button btnLogin = new Button("Login");
 		Button btnNew = new Button("New Account");
+		Button btnFix = new Button("Fix Password");
 
 		// HBox for buttons
 		HBox hbBtns = new HBox(5);
 		hbBtns.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtns.getChildren().addAll(btnNew, btnLogin);
+		hbBtns.getChildren().addAll(btnNew, btnLogin,btnFix);
 		root.add(hbBtns, 1, 4);
 
 		// Show Stage
@@ -60,6 +61,7 @@ public class Login extends Application {
 		// Set Handlers to buttons
 		btnLogin.setOnAction(new LoginHandler(tfUserName, pfPassword, primaryStage));
 		btnNew.setOnAction(new NewAccountHandler(root, title));
+		btnFix.setOnAction(new EncryptionHelp(root,title));
 	}
 
 	public static void main(String[] args) {

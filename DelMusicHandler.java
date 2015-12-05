@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -29,8 +31,8 @@ public class DelMusicHandler implements EventHandler<ActionEvent> {
 
 		// Make alert
 		Alert alertEditMusic = new Alert(AlertType.CONFIRMATION);
-		alertEditMusic.setTitle("Edit Music");
-		alertEditMusic.setHeaderText("What Album would you like to change?");
+		alertEditMusic.setTitle("Delete Music");
+		alertEditMusic.setHeaderText("What Album would you like to delete?");
 
 		// Make grid and add everything to it
 		GridPane grid = new GridPane();
@@ -38,20 +40,28 @@ public class DelMusicHandler implements EventHandler<ActionEvent> {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
 		TextField artist = new TextField();
-		TextField album = new TextField();
+		final TextField album = new TextField();
 		grid.add(new Label("Album:             "), 0, 0);
 		grid.add(album, 1, 0);
 		grid.add(new Label("Artist:            "), 0, 1);
 		grid.add(artist, 1, 1);
 		alertEditMusic.getDialogPane().setContent(grid);
+		
 
 		// Buttons
-		ButtonType addAlbum = new ButtonType("Continue");
+		ButtonType addAlbum = new ButtonType("Continue", ButtonData.OK_DONE);
 		ButtonType addCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
 		// Add buttons to alert
 		alertEditMusic.getButtonTypes().setAll(addAlbum, addCancel);
 
+		Platform.runLater(new Runnable() {
+		     @Override
+		     public void run() {
+		         album.requestFocus();
+		     }
+		});
+		
 		// Get user input
 		Optional<ButtonType> addInput = alertEditMusic.showAndWait();
 		if (addInput.get() == addAlbum) {

@@ -60,9 +60,9 @@ public class ScanSubmitHandler implements EventHandler<ActionEvent> {
 		}
 
 		String prev = "prev";
-		for (int i = 0; i < songScore.size(); i++) {
+		for (int i = 0; i < songName.size(); i++) {
 
-			if (prev.equals("") && !(songScore.get(i).equals(""))) {
+			if (prev.equals("") && !(songName.get(i).equals(""))) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Shred Nation Alert");
 				alert.setHeaderText(null);
@@ -72,7 +72,7 @@ public class ScanSubmitHandler implements EventHandler<ActionEvent> {
 				return;
 
 			}
-			prev = songScore.get(i);
+			prev = songName.get(i);
 
 		}
 
@@ -83,13 +83,7 @@ public class ScanSubmitHandler implements EventHandler<ActionEvent> {
 					|| songScore.get(i).equals("3") || songScore.get(i).equals("4") || songScore.get(i).equals("5")
 					|| songScore.get(i).equals("6") || songScore.get(i).equals("7") || songScore.get(i).equals("8")
 					|| songScore.get(i).equals("9") || songScore.get(i).equals("10") || songScore.get(i).equals("-"))) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Shred Nation Alert");
-				alert.setHeaderText(null);
-				alert.setContentText("Song scores must be through 0-10 or -");
-				alert.showAndWait();
-				alert.setResizable(false);
-				return;
+					songScore.set(i, "-");
 			}
 
 			if (songName.get(i).equals("")) {
@@ -107,7 +101,7 @@ public class ScanSubmitHandler implements EventHandler<ActionEvent> {
 		double alscore = 0;
 		int dontcount = 0;
 		for (int i = 0; i < songScore.size(); i++) {
-			if (!songScore.get(i).equals("0") && songScore.get(i).equals("-")) {
+			if (!songScore.get(i).equals("0") && !songScore.get(i).equals("-")) {
 				alscore = alscore + Double.parseDouble(songScore.get(i));
 			} else {
 				dontcount = dontcount + 1;

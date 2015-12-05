@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import org.apache.commons.lang.WordUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,9 +33,9 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		// Makes the first grid and adds the labels + sets it to the main node
 		GridPane gridA = new GridPane();
 		gridA.add(new Label("Artist :                                   "), 0, 0);
-		gridA.add(new Label(_artist.getText()), 1, 0);
+		gridA.add(new Label(WordUtils.capitalize(_artist.getText())), 1, 0);
 		gridA.add(new Label("Album : "), 0, 1);
-		gridA.add(new Label(_album.getText()), 1, 1);
+		gridA.add(new Label(WordUtils.capitalize(_album.getText())), 1, 1);
 		gridA.add(new Label("Song Name     "), 0, 2);
 		gridA.add(new Label("Scores        "), 1, 2);
 		main.getChildren().add(gridA);
@@ -70,9 +71,10 @@ public AddAlbumScreen(ArrayList<String> songList, TextField artist, TextField al
 		
 		
 		// Adds one textbox more than the songlist for bonus/missing songs etc
-		gridB.add(new TextField(), 0, _songList.size() );
-		gridB.add(holder.get(_songList.size()).getText(), 1, _songList.size());
-		
+		if(_songList.size() < 20){
+			gridB.add(new TextField(), 0, _songList.size() );
+			gridB.add(holder.get(_songList.size()).getText(), 1, _songList.size());
+		}
 		
 		// Adds the 2nd grid to the main node
 		main.getChildren().add(gridB);

@@ -4,27 +4,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
 import org.bouncycastle.crypto.CryptoException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AccountCheckHandler implements EventHandler<ActionEvent> {
+public class EncryptionHelpHandler implements EventHandler<ActionEvent> {
 	private TextField _user;
 	private PasswordField _pass1;
 	private PasswordField _pass2;
 	private Stage _stage;
 	private GridPane _grid;
 	private Text _text;
-
-	public AccountCheckHandler(TextField user, PasswordField pass1, PasswordField pass2, Stage stage, GridPane grid,
+	public EncryptionHelpHandler(TextField user, PasswordField pass1, PasswordField pass2, Stage stage, GridPane grid,
 			Text text) {
 		_pass1 = pass1;
 		_pass2 = pass2;
@@ -76,67 +78,61 @@ public class AccountCheckHandler implements EventHandler<ActionEvent> {
 
 				
 
-				File theDir = new File("/Users/" + sysName + "/Documents/Shred_Nation");
-				ObjectOutputStream out;
+				File theDir = new File("/Users/" + sysName + "/Documents/Shred_Nation/Profiles");
+			
 
 				// If the shred nation folder doesnt exist it will start it
 				if (!theDir.exists()) {
-					theDir.mkdir();
-				}
-
-				// Will make the profile folder if first use or deleted by a
-				// moron
-				theDir = new File("/Users/" + sysName + "/Documents/Shred_Nation/Profiles");
-				if (!theDir.exists()) {
-					theDir.mkdir();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Shred Nation Alert");
+					alert.setHeaderText(null);
+					alert.setContentText("No profile found with that name");
+					alert.showAndWait();
+					alert.setResizable(false);
 				}
 
 				
 				File[] hold = theDir.listFiles();
+				boolean inFile = false;
 				if(hold.length > 0){
 					
 					for(int i = 0; i < hold.length; i++){
-						if(hold[i].getName().equals(name)){
-							
-							Alert alert = new Alert(AlertType.INFORMATION);
-							alert.setTitle("Shred Nation Alert");
-							alert.setHeaderText(null);
-							alert.setContentText("Username already exists");
-							alert.showAndWait();
-							alert.setResizable(false);
+						
+						if(hold[i].getName().contains(name)){
+							inFile = true;
+
 							
 							
 						}
 					}
 					
+					if(inFile == false){
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Shred Nation Alert");
+						alert.setHeaderText(null);
+						alert.setContentText("Username does not exist");
+						alert.showAndWait();
+						alert.setResizable(false);
+						return;
+					}
 					
 					
+				} else {
+					return;
 				}
 				
-				theDir = new File("/Users/" + sysName + "/Documents/Shred_Nation/Profiles/" + name);
-				theDir.mkdir();
-
-				// Makes the properties file
-				WriteFile wfile = new WriteFile(name,
-						"/Users/" + sysName + "/Documents/Shred_Nation/Profiles/" + name + "/List.ser", "010", "0", "5",
-						"0");
-				wfile.Write();
-
-				// Makes the List file
-				ArrayList<Album> makeList = new ArrayList<Album>();
-				out = new ObjectOutputStream(new FileOutputStream(
-						"/Users/" + sysName + "/Documents/Shred_Nation/Profiles/" + name + "/List.ser"));
-				out.writeObject(makeList);
-				out.flush();
-				out.close();
-
-
-				// For encryption it needs to be exactly 16 chars, so if its
-				// less it will fill it with blanks
-				while (pass.length() != 16) {
-					pass = pass + " ";
-				}
-
+				
+				
+		ReadFile read = new ReadFile(name);
+		String test = read.getAlbum();
+		System.out.println(test);
+		
+		// For encryption it needs to be exactly 16 chars, so if its
+		// less it will fill it with blanks
+		while (pass.length() != 16) {
+			pass = pass + " ";
+		}
+		
 				// encrypts the list
 				File file1 = new File("/Users/" + sysName + "/Documents/Shred_Nation/Profiles/" + name + "/List.ser");
 				Encryption.encrypt(pass, file1, file1);
@@ -152,30 +148,21 @@ public class AccountCheckHandler implements EventHandler<ActionEvent> {
 				_stage.close();
 				_stage = null;
 
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Shred Nation Alert");
-				alert.setHeaderText(null);
-				alert.setContentText("Meltdown");
-				alert.showAndWait();
-				alert.setResizable(false);
-				return;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Shred Nation Alert");
-				alert.setHeaderText(null);
-				alert.setContentText("Meltdown");
-				alert.showAndWait();
-				alert.setResizable(false);
-				return;
+			
 			} catch (CryptoException e1) {
 				// TODO Auto-generated catch block
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Shred Nation Alert");
 				alert.setHeaderText(null);
 				alert.setContentText("Meltdown");
+				alert.showAndWait();
+				alert.setResizable(false);
+				return;
+			} catch(NoSuchElementException e2){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Shred Nation Alert");
+				alert.setHeaderText(null);
+				alert.setContentText("File seems to be encypted");
 				alert.showAndWait();
 				alert.setResizable(false);
 				return;

@@ -53,6 +53,7 @@ public class Gui {
 		Menu file = new Menu("File");
 
 		// Menu Items
+		MenuItem itmExport = new MenuItem("Export");
 		MenuItem itmLogOut = new MenuItem("Log Out");
 		MenuItem itmExit = new MenuItem("Exit");
 
@@ -75,12 +76,14 @@ public class Gui {
 
 		// Menu Items
 		MenuItem itmChanges = new MenuItem("Changes");
+		MenuItem itmGuide = new MenuItem("Guide");
+		MenuItem itmCredits = new MenuItem("Credits");
 
 		// Add MenuItems to Menus
-		file.getItems().addAll(itmLogOut, itmExit);
+		file.getItems().addAll(itmExport, itmLogOut, itmExit);
 		subCustom.getItems().addAll(itmDefault, itmForest, itmStormcrow);
 		preferences.getItems().addAll(itmOptions, subCustom);
-		help.getItems().add(itmChanges);
+		help.getItems().addAll(itmChanges, itmGuide, itmCredits);
 
 		// Add Menus to MenuBar
 		menuBar.getMenus().addAll(file, preferences, help);
@@ -115,7 +118,7 @@ public class Gui {
 		clearText = new Button("Clear");
 
 		// add Event Handlers to buttons
-		addMusic.setOnAction(new AddMusicHandler(_user));
+		addMusic.setOnAction(new AddAlbumAlert(_user));
 		editMusic.setOnAction(new EditMusicHandler(_user));
 		delMusic.setOnAction(new DelMusicHandler(_user));
 		scanMusic.setOnAction(new ScanMusicHandler(_user));
@@ -230,10 +233,10 @@ public class Gui {
  * 
  * mike bug fix-
  * make sure alerts stay on top... because they dont
- * dont let user name be blank, it accepts it
+ * 
  * encrypt backup files
  * program crashes, cant loig into account
- * can create existing username
+ * 
  * check debug to see if there is something that shows what vars are still in memory to see how we can clean it up more
  * make sure main screen is disabled when doing other stuff, if on wait doesnt work check newaccounthandler to see how i did it before
  * make exit buttons work lol

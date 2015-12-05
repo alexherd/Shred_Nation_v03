@@ -22,8 +22,8 @@ public class SortRangeAlert {
 	
 	public void Range(){
 	Alert alertEditMusic = new Alert(AlertType.CONFIRMATION);
-	alertEditMusic.setTitle("Edit Music");
-	alertEditMusic.setHeaderText("What Album would you like to change?");
+	alertEditMusic.setTitle("Sort Music");
+	alertEditMusic.setHeaderText("What ratings would you like to display?");
 
 	GridPane grid = new GridPane();
 	grid.setHgap(10);
@@ -38,7 +38,7 @@ public class SortRangeAlert {
 	alertEditMusic.getDialogPane().setContent(grid);
 
 	// Buttons
-	ButtonType addAlbum = new ButtonType("Continue");
+	ButtonType addAlbum = new ButtonType("Continue", ButtonData.OK_DONE);
 	ButtonType addCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
 	// Add buttons to alert

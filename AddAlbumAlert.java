@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Optional;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -31,7 +33,7 @@ public class AddAlbumAlert implements EventHandler<ActionEvent> {
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
-		TextField artist = new TextField();
+		final TextField artist = new TextField();
 		TextField album = new TextField();
 		grid.add(new Label("Artist:             "), 0, 0);
 		grid.add(artist, 1, 0);
@@ -40,12 +42,19 @@ public class AddAlbumAlert implements EventHandler<ActionEvent> {
 		alertAddMusic.getDialogPane().setContent(grid);
 
 		// Buttons
-		ButtonType addAlbum = new ButtonType("Continue");
+		ButtonType addAlbum = new ButtonType("Continue", ButtonData.OK_DONE);
 		ButtonType addCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
 		// Add buttons to alert
 		alertAddMusic.getButtonTypes().setAll(addAlbum, addCancel);
 
+		Platform.runLater(new Runnable() {
+		     @Override
+		     public void run() {
+		         artist.requestFocus();
+		     }
+		});
+		
 		// Get user input + show alert
 		Optional<ButtonType> addInput = alertAddMusic.showAndWait();
 		if (addInput.get() == addAlbum) {
