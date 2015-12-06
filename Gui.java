@@ -68,9 +68,12 @@ public class Gui {
 
 		// Submenu Items (Style Sheets) ****NEW****
 		MenuItem itmDefault = new MenuItem("Default");
-		MenuItem itmForest = new MenuItem("Forest");
+		MenuItem itmDeadsong = new MenuItem("Deadsong");
+		MenuItem itmFountain = new MenuItem("Fountain");
+		MenuItem itmMedusalem = new MenuItem("Medusalem");
 		MenuItem itmStormcrow = new MenuItem("Stormcrow");
-
+		MenuItem itmUncharted = new MenuItem("Uncharted");
+		
 		// Menu3
 		Menu help = new Menu("Help");
 
@@ -81,7 +84,7 @@ public class Gui {
 
 		// Add MenuItems to Menus
 		file.getItems().addAll(itmExport, itmLogOut, itmExit);
-		subCustom.getItems().addAll(itmDefault, itmForest, itmStormcrow);
+		subCustom.getItems().addAll(itmDefault, itmDeadsong, itmFountain, itmMedusalem, itmStormcrow, itmUncharted);
 		preferences.getItems().addAll(itmOptions, subCustom);
 		help.getItems().addAll(itmChanges, itmGuide, itmCredits);
 
@@ -168,9 +171,12 @@ public class Gui {
 		
 		// Add Event Handlers to Submenu Items
 		itmDefault.setOnAction(new StyleHandler(sceneMusic, 0, _user));
-		itmForest.setOnAction(new StyleHandler(sceneMusic, 1, _user));
-		itmStormcrow.setOnAction(new StyleHandler(sceneMusic, 2, _user));
-
+		itmDeadsong.setOnAction(new StyleHandler(sceneMusic, 1, _user));
+		itmFountain.setOnAction(new StyleHandler(sceneMusic, 2, _user));
+		itmMedusalem.setOnAction(new StyleHandler(sceneMusic, 3, _user));
+		itmStormcrow.setOnAction(new StyleHandler(sceneMusic, 4, _user));
+		itmUncharted.setOnAction(new StyleHandler(sceneMusic, 5, _user));
+		
 		// Change Menu
 		itmChanges.setOnAction(new ChangesHandler(displayText));
 
@@ -179,10 +185,16 @@ public class Gui {
 		if (readFile.getUse().substring(2, 3).equals("0")) {
 			sceneMusic.getStylesheets().add("Default.css");
 		} else if (readFile.getUse().substring(2, 3).equals("1")) {
-			sceneMusic.getStylesheets().add("Forest.css");
+			sceneMusic.getStylesheets().add("Deadsong.css");
 		} else if (readFile.getUse().substring(2, 3).equals("2")) {
+			sceneMusic.getStylesheets().add("Fountain.css");
+		} else if (readFile.getUse().substring(2, 3).equals("3")) {
+			sceneMusic.getStylesheets().add("Medusalem.css");
+		} else if (readFile.getUse().substring(2, 3).equals("4")) {
 			sceneMusic.getStylesheets().add("Stormcrow.css");
-		}
+		} else {
+			sceneMusic.getStylesheets().add("Uncharted.css");
+		} 
 
 		// When the program is exited it will re-encrypt files
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
